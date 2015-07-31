@@ -17,6 +17,7 @@
 #define lblUpdateFont [UIFont fontWithName:@"Lato-Black" size:11]
 
 #define lblHistoryColor [UIColor colorWithRed:126.0f/255.0f green:211.0f/255.0f blue:33.0f/255.0f alpha:1.0f]
+#define lblHistoryRedColor [UIColor colorWithRed:225.0f/255.0f green:50.0f/255.0f blue:5.0f/255.0f alpha:1.0f]
 #define lblHistoryFont [UIFont fontWithName:@"Lato-MediumItalic" size:17]
 
 #define lblRatesColor [UIColor colorWithRed:63.0f/255.0f green:71.0f/255.0f blue:83.0f/255.0f alpha:1.0f]
@@ -338,7 +339,7 @@
 
         
         //lblUpdated.text =[NSString stringWithFormat:@"%@ %@",NSLocalizedString(@"updated",nil),dateString];
-        
+        UIColor *historyColor = lblHistoryColor;
         if (historyRates !=nil && historyRates.count>selectedPairID) {
             
             NSNumber *curRate =currentRates[selectedPairID];
@@ -359,6 +360,8 @@
                 
             }
             else if (percentInt<0) {
+                historyColor = lblHistoryRedColor;
+
                 historyText =[NSString stringWithFormat:@"%@ %@\n%@ %i %@",
                                       NSLocalizedString(@"Since yesterday", nil),
                                       currencyName,
@@ -378,7 +381,7 @@
                     
                 }
                 else if (percentFloat < 0) {
-                    
+                    historyColor = lblHistoryRedColor;
                     historyText =[NSString stringWithFormat:@"%@ %@\n%@",
                                           NSLocalizedString(@"Since yesterday", nil),
                                           currencyName,
@@ -402,7 +405,7 @@
                                                     attributes:
                                                     @{
                                                       NSFontAttributeName : lblHistoryFont,
-                                                      NSForegroundColorAttributeName : lblHistoryColor,
+                                                      NSForegroundColorAttributeName : historyColor,
                                                       }];
             
             lblRateHistory.attributedText = attributedString;

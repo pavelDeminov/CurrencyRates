@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>D18AF3CA-ED70-4AFA-9373-A3E9834BB591</string>
+	<key>IDESourceControlProjectName</key>
+	<string>MoneyExchange</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>4FFB093E663D0631586A97BE8E6B8854BD244957</key>
+		<string>https://github.com/sindanar/CurrencyRates.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>application/MoneyExchange.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>4FFB093E663D0631586A97BE8E6B8854BD244957</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/sindanar/CurrencyRates.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>4FFB093E663D0631586A97BE8E6B8854BD244957</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>4FFB093E663D0631586A97BE8E6B8854BD244957</string>
+			<key>IDESourceControlWCCName</key>
+			<string>CurrencyRates</string>
+		</dict>
+	</array>
+</dict>
+</plist>
