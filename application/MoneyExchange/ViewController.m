@@ -10,6 +10,7 @@
 #import "MoneyTypeTableViewCell.h"
 #import "APIClient.h"
 #import "MBProgressHUD.h"
+#import "UIImage+Color.h"
 
 #define kSource @"kSource"
 #define kOutput @"kOutput"
@@ -29,7 +30,6 @@
 
 @interface ViewController () <UITableViewDataSource,UITableViewDelegate,UIGestureRecognizerDelegate> {
     
-    IBOutlet UIView *middleView;
     BOOL bottomMenuIsShow;
     IBOutlet UITableView *_tableView;
     IBOutlet NSLayoutConstraint *tableViewHeightContraint;
@@ -161,7 +161,7 @@
     
     tableViewTopContraint.constant = (int)self.view.frame.size.height-[self statusBarHeight];
     int viewMaxHeight = self.view.frame.size.height-[self statusBarHeight]  - middleViewHeightConstraint.constant - [self statusBarHeight];
-    int tableMaxHeight = 44*currencyArray.count;
+    int tableMaxHeight = 44*(int)currencyArray.count;
     tableViewHeightContraint.constant = viewMaxHeight>tableMaxHeight ? tableMaxHeight : viewMaxHeight;
     _tableView.scrollEnabled =viewMaxHeight>tableMaxHeight ? NO : YES;
 
@@ -288,7 +288,7 @@
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:dict[kSource]];
     
     NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
-    textAttachment.image = [self colorImage:[UIImage imageNamed:@"arrow"] color:lblRatePairColor] ;
+    textAttachment.image = [UIImage colorImage:[UIImage imageNamed:@"arrow"] color:lblRatePairColor] ;
     
     NSAttributedString *attrStringWithImage = [NSAttributedString attributedStringWithAttachment:textAttachment];
     
@@ -471,28 +471,6 @@
     NSLog(@"fonts = %@", dict);
 }
 
-- (UIImage *)colorImage:(UIImage *)image color:(UIColor *)color
-{
-    UIGraphicsBeginImageContextWithOptions(image.size, NO, [UIScreen mainScreen].scale);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    
-    CGContextTranslateCTM(context, 0, image.size.height);
-    CGContextScaleCTM(context, 1.0, -1.0);
-    CGRect rect = CGRectMake(0, 0, image.size.width, image.size.height);
-    
-    CGContextSetBlendMode(context, kCGBlendModeNormal);
-    CGContextDrawImage(context, rect, image.CGImage);
-    CGContextSetBlendMode(context, kCGBlendModeSourceIn);
-    [color setFill];
-    CGContextFillRect(context, rect);
-    
-    
-    UIImage *coloredImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return coloredImage;
-}
-
 #pragma mark - Table view data source and delegate
 
 
@@ -514,7 +492,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     [self dismissTableView];
-    selectedPairID = indexPath.row;
+    selectedPairID = (int)indexPath.row;
     NSDictionary *dict =currencyArray[indexPath.row];
     
     NSAttributedString *attributedString = [[NSAttributedString alloc]
