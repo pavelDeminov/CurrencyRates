@@ -1,0 +1,22 @@
+/* 
+  Localizable.strings
+  MoneyExchange
+
+  Created by Pavel Deminov on 31/07/15.
+  Copyright (c) 2015 Company. All rights reserved.
+*/
+
+"Since yesterday" = "Cо вчерашнего дня";
+"grow by" = "вырос на";
+"grow less than 1 percent" = "вырос менее чем на 1 процент";
+"fell by" = "упал на";
+"fell less than 1 percent" = "упал менее чем на 1 процент";
+"percent" = "процент";
+"percents" = "процентов";
+"percentsAdditional" = "процента";
+"not changed" = "не изменился";
+"dollar" = "доллар";
+"ruble" = "рубль";
+"euro" = "евро";
+"updated" = "ОБНОВЛЕНО";
+"error" = "ошибка";
