@@ -41,10 +41,10 @@
     IBOutlet NSLayoutConstraint *middleViewTopConstraint;
     IBOutlet NSLayoutConstraint *middleViewHeightConstraint;
     
-    __strong NSArray *currencyArray;
-    __strong NSArray *historyRates;
-    __strong NSArray *currentRates;
-    __strong NSDate *updateDate;
+    NSArray *currencyArray;
+    NSArray *historyRates;
+    NSArray *currentRates;
+    NSDate *updateDate;
     
     IBOutlet UILabel *lblRateName;
     IBOutlet UILabel *lblRateValue;
@@ -96,11 +96,6 @@
     [self layoutScreenViews];
     [self btnRefreshPressed:nil];
     [self updateView];
-    
-    
-//    [[APIClient sharedInstance] apiLiveWithcompletionHandler:^(BOOL succes, NSError *error) {
-//        
-//    }];
     
 }
 
@@ -164,7 +159,6 @@
     int tableMaxHeight = 44*(int)currencyArray.count;
     tableViewHeightContraint.constant = viewMaxHeight>tableMaxHeight ? tableMaxHeight : viewMaxHeight;
     _tableView.scrollEnabled =viewMaxHeight>tableMaxHeight ? NO : YES;
-
     
     middleViewTopConstraint.constant = (self.view.frame.size.height-[self statusBarHeight] - bottomMenuHeightConstraint.constant - middleViewHeightConstraint.constant)*0.5f;
     
@@ -281,20 +275,14 @@
 
 -(void) updateView {
     
-    
     NSDictionary *dict =currencyArray[selectedPairID];
-    
-    
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:dict[kSource]];
-    
     NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
     textAttachment.image = [UIImage colorImage:[UIImage imageNamed:@"arrow"] color:lblRatePairColor] ;
     
     NSAttributedString *attrStringWithImage = [NSAttributedString attributedStringWithAttachment:textAttachment];
-    
     [attributedString insertAttributedString:attrStringWithImage atIndex:attributedString.length];
     [attributedString insertAttributedString:[[NSMutableAttributedString alloc] initWithString:dict[kOutput]] atIndex:attributedString.length];
-    
     [attributedString addAttributes:@{
                                      NSFontAttributeName : lblRatePairFont,
                                      NSForegroundColorAttributeName : lblRatePairColor,
@@ -327,8 +315,8 @@
         NSString *dateString = [dateFormat stringFromDate:updateDate];
         
         attributedString = [[NSAttributedString alloc]
-                                                initWithString:[NSString stringWithFormat:@"%@ %@",NSLocalizedString(@"updated",nil),dateString]
-         attributes:
+        initWithString:[NSString stringWithFormat:@"%@ %@",NSLocalizedString(@"updated",nil),dateString]
+        attributes:
          @{
            NSFontAttributeName : lblUpdateFont,
            NSForegroundColorAttributeName : lblUpdateColor,
@@ -407,17 +395,11 @@
                                                       NSFontAttributeName : lblHistoryFont,
                                                       NSForegroundColorAttributeName : historyColor,
                                                       }];
-            
             lblRateHistory.attributedText = attributedString;
-            
-            
-            
         }
-        
     }
     
     if (currentDataloading == NO && historyLoading == NO) {
-        
         btnRefresh.hidden = NO;
         [activityIndicator stopAnimating];
     }
@@ -433,14 +415,11 @@
    else if ([abbr isEqualToString:@"EUR"]) return  NSLocalizedString(@"euro",nil);
 
     return nil;
-
-    
 }
 
 -(NSString*)percentName:(int)_value {
     
     int value = _value % 10 ;
-    
     if (value ==1) {
         
         return NSLocalizedString(@"percent",nil);
@@ -472,7 +451,6 @@
 }
 
 #pragma mark - Table view data source and delegate
-
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return currencyArray.count;

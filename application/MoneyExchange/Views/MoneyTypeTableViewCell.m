@@ -17,8 +17,8 @@
 
 @interface MoneyTypeTableViewCell () {
     IBOutlet UILabel *lblCurrencyPair;
-    __strong NSString *_source;
-    __strong NSString *_output;
+    NSString *_source;
+    NSString *_output;
 }
 
 @end
@@ -49,7 +49,6 @@
     
     if (_source.length == 0 || _output.length ==0) return;
     
-
     
     NSMutableAttributedString *attributedString;
     if (self.selected) {
