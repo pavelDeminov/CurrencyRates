@@ -10,7 +10,7 @@
 
 @interface MoneyTypeTableViewCell : UITableViewCell
 
-
+@property(nonatomic,assign) BOOL cellSelected;
 -(void)setPairSource:(NSString*)source output:(NSString*)output;
 
 @end

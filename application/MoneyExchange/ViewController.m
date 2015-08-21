@@ -59,6 +59,7 @@
     
     BOOL historyLoading;
     BOOL currentDataloading;
+    MoneyTypeTableViewCell *selectedCell;
 }
 
 
@@ -96,6 +97,7 @@
     [self layoutScreenViews];
     [self btnRefreshPressed:nil];
     [self updateView];
+    //NSLog(@"%@",[self percentString:24]);
     
 }
 
@@ -336,25 +338,25 @@
             int percentInt = (percentFloat * 100) ;
             NSDictionary *dict =currencyArray[selectedPairID];
             NSString *currencyName = [self currencyWithAbbreviation:dict[kSource]];
-            NSString *percentName = [self percentName:abs(percentInt) ];
+            NSString *percentName = [self percentString:abs(percentInt) ];
             NSString *historyText = @"";
             if (percentInt>0) {
-                historyText =[NSString stringWithFormat:@"%@ %@\n%@ %i %@",
+                historyText =[NSString stringWithFormat:@"%@ %@\n%@ %@",
                                       NSLocalizedString(@"Since yesterday", nil),
                                       currencyName,
                                       NSLocalizedString(@"grow by", nil),
-                                      abs(percentInt),
+                                      //abs(percentInt),
                                       percentName];
                 
             }
             else if (percentInt<0) {
                 historyColor = lblHistoryRedColor;
 
-                historyText =[NSString stringWithFormat:@"%@ %@\n%@ %i %@",
+                historyText =[NSString stringWithFormat:@"%@ %@\n%@ %@",
                                       NSLocalizedString(@"Since yesterday", nil),
                                       currencyName,
                                       NSLocalizedString(@"fell by", nil),
-                                      abs(percentInt),
+                                      //abs(percentInt),
                                       percentName];
                 
             }
@@ -417,23 +419,9 @@
     return nil;
 }
 
--(NSString*)percentName:(int)_value {
+-(NSString*)percentString:(int)_value {
     
-    int value = _value % 10 ;
-    if (value ==1) {
-        
-        return NSLocalizedString(@"percent",nil);
-    } else if (value >1 && value <5) {
-        NSString * language = [[NSLocale preferredLanguages] objectAtIndex:0];
-        if ([language isEqualToString:@"ru"]) {
-            return NSLocalizedString(@"percentsAdditional",nil);
-        } else {
-            return NSLocalizedString(@"percents",nil);
-        }
-        
-    } else {
-        return NSLocalizedString(@"percents",nil);
-    }
+    return [NSString localizedStringWithFormat:NSLocalizedString(@"%d percents", nil), (long)_value];
     
 }
 
@@ -464,6 +452,13 @@
     NSDictionary *dict =currencyArray[indexPath.row];
     
     [cell setPairSource:dict[kSource] output:dict[kOutput]];
+    if (selectedPairID == indexPath.row) {
+        cell.cellSelected = YES;
+        selectedCell = cell;
+    } else {
+        cell.cellSelected = NO;
+        
+    }
     return cell;
 }
 
@@ -486,6 +481,12 @@
     lblRateName.attributedText  = attributedString;
     
     [self updateView];
+    
+    if (selectedCell!=nil) {
+        selectedCell.cellSelected = NO;
+    }
+    selectedCell = (MoneyTypeTableViewCell*)[tableView cellForRowAtIndexPath:indexPath];
+    selectedCell.cellSelected = YES;
     
 }
 

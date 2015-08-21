@@ -31,16 +31,22 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
+    //NSLog(@"%hhd",selected);
     
-    [self updateView];
     // Configure the view for the selected state
+}
+
+-(void)setCellSelected:(BOOL)cellSelected {
+    _cellSelected = cellSelected;
+    [self updateView];
+    
 }
 
 -(void)setPairSource:(NSString*)source output:(NSString*)output {
     
     _source = source;
     _output = output;
-    [self updateView];
+    //[self updateView];
     
 }
 
@@ -51,7 +57,7 @@
     
     
     NSMutableAttributedString *attributedString;
-    if (self.selected) {
+    if (self.cellSelected) {
         
         attributedString = [[NSMutableAttributedString alloc] initWithString:_source];
         
